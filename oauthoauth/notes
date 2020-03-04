@@ -1,0 +1,46 @@
+configure within application.yml
+-------------------------------------------------------------------
+spring:
+  security:
+    user:
+      name: tharsikan
+      password: tharsikan$12
+      roles: USER,ADMIN
+security:
+  oauth2:
+    client:
+      client-id: mobile
+      client-secret: pin
+      access-token-validity-seconds: 3600
+      authorized-grant-types: refresh_token,authorization_code,password,client_credentials
+      scope: READ,WRITE
+    authorization:
+      check-token-access: permitAll
+
+requests
+-------------------------------------------------------------------
+GET::  http://localhost:8282/oauth/token
+> Basic
+	> provide server's username, password 
+
+
+to get access_token
+-----------------------------------------
+POST::  http://localhost:8282/oauth/token
+> Basic
+	> provide server's username, password 
+> Form url encode
+	> provide client's grant_type, username, password, scope
+
+
+to check access_token state
+-----------------------------------------
+GET::  	http://localhost:8282/oauth/check_token?token=4e87ac60-e1e1-44eb-a667-48d1313659a5
+> Basic
+	> provide server's username, password 
+
+* you need to tell 
+	> heck-token-access: permitAll
+
+
+
